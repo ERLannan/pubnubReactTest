@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ChatsWindow.module.css';
+import classes from './MessagesHolder.module.css';
 
 const chatsWindow = (props) => {
   return (
@@ -7,7 +7,7 @@ const chatsWindow = (props) => {
       <ul className={classes.chatlist}>
         {props.messages.map((msg, index) => {
           return <li key={"message"+index}>{msg.message.text}</li>
-        })}
+        }).reverse()}
       </ul>
     </div>); 
 }

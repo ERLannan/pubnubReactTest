@@ -1,10 +1,16 @@
 import React,{Component} from 'react';
-import classes from './Chatterbox.module.css';
 import PubNubReact from 'pubnub-react';
-import ChatsWindow from '../../Components/ChatsWindow/ChatsWindow';
-import Aux from '../../HOC/Aux/Aux';
+
+import ChatsWindow from '../../Components/Chat/MessagesHolder/MessagesHolder';
+import MessageInput from '../../Components/Chat/MessageInput/MessageInput';
+
+import classes from './Chatterbox.module.css';
 
 class Chatterbox extends Component {
+
+  state = {
+    currentMessage:''
+  }
   
   constructor(props) {
     super(props);
@@ -39,21 +45,48 @@ componentWillUnmount() {
     });
 }
 
+messageChangedHandler = (event) => {
+  this.setState({currentMessage:event.target.value});
+} 
 
-  render() {
-    const messages = this.pubnub.getMessage('channel1');
+sendClickedHandler = () => {
+  this.sendMessage();
+}
 
-    return (
-      <div className={classes.chatterbox}>
-        <div className={classes.sidepanel}>Left column</div>
-        <div className={classes.chatContainer}>
-          <div className={classes.messages}>
+sendKeyPressHandler = (event) => {
+  if(event.key === 'Enter') {
+    this.sendMessage();
+  }
+}
+
+sendMessage = () => {
+  if(this.state.currentMessage.length>0){
+    this.pubnub.publish({
+      message: {'text':this.state.currentMessage},
+      channel: 'channel1'
+    });
+    this.setState({currentMessage:''});
+  }
+}
+
+render() {
+   const messages = this.pubnub.getMessage('channel1');
+
+   return (
+    <div className={classes.chatterbox}>
+      <div className={classes.sidepanel}>Left column</div>
+      <div className={classes.chatContainer}>
+        <div className={classes.messages}>
           <ChatsWindow messages={messages}/>
-          </div>
-          <div className={classes.input}>Input</div>
+        </div>
+        <div className={classes.input}>
+          <MessageInput sendClicked={this.sendClickedHandler} 
+                        msg={this.state.currentMessage}
+                        messageChanged={this.messageChangedHandler}
+                        returnKeyPressed={this.sendKeyPressHandler}/>
         </div>
       </div>
-    )
+    </div>)
   }
 }
 
