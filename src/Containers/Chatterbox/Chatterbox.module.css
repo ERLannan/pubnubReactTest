@@ -1,0 +1,31 @@
+.chatterbox {
+  margin:5% auto;
+  height: 80vh;
+  width: 120vh;
+  display: flex;
+}
+
+.chatterbox div {
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+.sidepanel {
+  width: 15%;
+  height: 100%;
+}
+
+.chatContainer {
+  width: 85%;
+  height: 100%;
+}
+
+.messages {
+  height: 90%;
+  width: 100%;
+}
+
+.input {
+  height: 10%;
+  width: 100%;
+}

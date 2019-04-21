@@ -1,0 +1,13 @@
+.chatlistholder {
+  height: 100%;
+  width: 100%;
+}
+
+.chatlist {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100%;
+  margin: 0%;
+  box-sizing: border-box;
+  overflow: scroll;
+}

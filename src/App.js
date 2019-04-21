@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Layout from './Containers/Layout/Layout';
+import Layout from './HOC/Layout/Layout';
+import Chatterbox from './Containers/Chatterbox/Chatterbox';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Layout>
-          
+          <Chatterbox />
         </Layout>
       </div>
     );
