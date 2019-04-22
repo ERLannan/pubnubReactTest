@@ -9,7 +9,8 @@ import classes from './Chatterbox.module.css';
 class Chatterbox extends Component {
 
   state = {
-    currentMessage:''
+    currentMessage:'',
+    pnID: null
   }
   
   constructor(props) {
@@ -19,24 +20,26 @@ class Chatterbox extends Component {
         subscribeKey: 'demo'
     });
     this.pubnub.init(this);
+    ;
 }
 
 componentWillMount() {
-    this.pubnub.subscribe({
-        channels: ['channel1'],
-        withPresence: true
-    });
+  this.pubnub.setUUID('react-test-app')
+  this.pubnub.subscribe({
+      channels: ['channel1'],
+      withPresence: true
+  });
 
-    this.pubnub.getMessage('channel1', (msg) => {
-        console.log(msg);
-    });
+  this.pubnub.getMessage('channel1', (msg) => {
+      console.log(msg);
+  });
 
-    this.pubnub.getStatus((st) => {
-        this.pubnub.publish({
-            message: {'text':'hello world from react'},
-            channel: 'channel1'
-        });
-    });
+  this.pubnub.getStatus((st) => {
+      this.pubnub.publish({
+          message: {'text':'hello world from react'},
+          channel: 'channel1'
+      });
+  });
 }
 
 componentWillUnmount() {
@@ -76,14 +79,15 @@ render() {
     <div className={classes.chatterbox}>
       <div className={classes.sidepanel}>Left column</div>
       <div className={classes.chatContainer}>
-        <div className={classes.messages}>
-          <ChatsWindow messages={messages}/>
-        </div>
+        
         <div className={classes.input}>
           <MessageInput sendClicked={this.sendClickedHandler} 
                         msg={this.state.currentMessage}
                         messageChanged={this.messageChangedHandler}
                         returnKeyPressed={this.sendKeyPressHandler}/>
+        </div>
+        <div className={classes.messages}>
+          <ChatsWindow messages={messages}/>
         </div>
       </div>
     </div>)

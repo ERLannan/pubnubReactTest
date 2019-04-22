@@ -6,7 +6,7 @@ const chatsWindow = (props) => {
     <div className={classes.chatlistholder}>
       <ul className={classes.chatlist}>
         {props.messages.map((msg, index) => {
-          return <li key={"message"+index}>{msg.message.text}</li>
+          return <li className={classes.messageRow} key={"message"+index}>{msg.message.text}</li>
         }).reverse()}
       </ul>
     </div>); 

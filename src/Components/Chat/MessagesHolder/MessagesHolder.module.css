@@ -12,3 +12,12 @@
   overflow: scroll;
   padding: 4px 6px;
 }
+
+.messageRow {
+  border: 1px solid black;
+  margin:5px;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #BEE2E7;
+}
